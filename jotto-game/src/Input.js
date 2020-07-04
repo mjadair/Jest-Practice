@@ -15,6 +15,10 @@ const Input = () => {
 
 }
 
+Input.propTypes = {
+  secretWord: PropTypes.string.isRequired
+}
+
 
 
 export default Input
