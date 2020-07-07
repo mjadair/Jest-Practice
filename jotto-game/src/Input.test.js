@@ -47,5 +47,17 @@ describe('state controlled input field', () => {
   })
 
 
+  test('field is cleared upon submit button click', () => {
+    const mockSetCurrentGuess = jest.fn()
+    React.useState = jest.fn(() => ["", mosckSetCurrentGuess])
+
+    const wrapper = setup()
+    const submitButton = findByTestAttr(wrapper, 'submit-button')
+
+    submitButton.simulate('click')
+    expect(mockSetCurrentGuess).toHaveBeenCalledWith("")
+  })
+
+
 
 })
