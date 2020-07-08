@@ -49,7 +49,7 @@ describe('state controlled input field', () => {
 
   test('field is cleared upon submit button click', () => {
     const mockSetCurrentGuess = jest.fn()
-    React.useState = jest.fn(() => ["", mosckSetCurrentGuess])
+    React.useState = jest.fn(() => ["", mockSetCurrentGuess])
 
     const wrapper = setup()
     const submitButton = findByTestAttr(wrapper, 'submit-button')

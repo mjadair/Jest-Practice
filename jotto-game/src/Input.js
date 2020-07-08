@@ -20,6 +20,9 @@ const [ currentGuess, setCurrentGuess] = React.useState('')
   <button
   data-test="submit-button"
   className="btn btn-primary"
+  onClick={() => {
+    setCurrentGuess("")
+  }}
   >
     Submit
     </button>
