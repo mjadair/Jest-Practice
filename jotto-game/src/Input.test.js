@@ -28,17 +28,24 @@ test('does not throw a warning with expected props', () => {
 
 describe('state controlled input field', () => {
 
-  test('state updates with value of input box on change', () => {
-    const mockSetCurrentGuess = jest.fn()
+  let mockSetCurrentGuess = jest.fn()
+  let wrapper
+
+  beforeEach(() => {
+    mockSetCurrentGuess.mockClear()
     //we're replacing the useState function in the actual component with a jest mock Function, which returns the initial string that state is set in and then the mockFunction that useState returns.
     React.useState = jest.fn(() => ['', mockSetCurrentGuess])
+    wrapper = setup()
 
 
-    const wrapper = setup()
+  })
+
+  test('state updates with value of input box on change', () => {
+
     const inputBox = findByTestAttr(wrapper, 'input-box')
 
     //these two lines simulate the inputBox being given a value of train
-    const mockEvent = { target: { value: 'train'} }
+    const mockEvent = { target: { value: 'train' } }
     inputBox.simulate("change", mockEvent)
 
     expect(mockSetCurrentGuess).toHaveBeenCalledWith('train')
@@ -48,13 +55,11 @@ describe('state controlled input field', () => {
 
 
   test('field is cleared upon submit button click', () => {
-    const mockSetCurrentGuess = jest.fn()
-    React.useState = jest.fn(() => ["", mockSetCurrentGuess])
-
-    const wrapper = setup()
     const submitButton = findByTestAttr(wrapper, 'submit-button')
 
-    submitButton.simulate('click')
+    //we  have prevent default passed as an argument in the simulated function 
+    // this is because we need it in actuality on the front-end, so it's an empty function in the test to acknowledge this
+    submitButton.simulate('click', { preventDefault() {}})
     expect(mockSetCurrentGuess).toHaveBeenCalledWith("")
   })
 
